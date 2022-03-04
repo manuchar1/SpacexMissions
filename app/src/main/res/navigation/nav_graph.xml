@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/shipsFragment">
+
+    <fragment
+        android:id="@+id/shipsFragment"
+        android:name="com.lemondo.spacexmissions.ui.views.slideShow.ShipsFragment"
+        android:label="fragment_ships"
+        tools:layout="@layout/fragment_ships">
+        <action
+            android:id="@+id/action_shipsFragment_to_searchFragment"
+            app:destination="@id/missionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="isPaused"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/missionsFragment"
+        android:name="com.lemondo.spacexmissions.ui.views.missions.MissionsFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_missions" >
+        <argument
+            android:name="shipsData"
+            app:argType="com.lemondo.spacexmissions.data.models.ShipsResponse" />
+        <action
+            android:id="@+id/action_missionsFragment_to_linksDialog"
+            app:destination="@id/linksDialog" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.lemondo.spacexmissions.ui.views.details.DetailsFragment"
+        android:label="fragment_launches"
+        tools:layout="@layout/fragment_launches" >
+        <argument
+            android:name="videoLink"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="articleUrl"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="wikipedia"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <dialog
+        android:id="@+id/linksDialog"
+        android:name="com.lemondo.spacexmissions.ui.views.details.dialog.LinksDialog"
+        android:label="LinksDialog" >
+        <argument
+            android:name="usefulLinks"
+            app:argType="com.lemondo.spacexmissions.data.models.Links"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_linksDialog_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </dialog>
+
+</navigation>
